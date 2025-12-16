@@ -53,7 +53,7 @@ func collector(web string) error {
 
 	c.Visit(web)
 
-	err = os.WriteFile("cekilen.html", []byte(htmlContent), 0644)
+	err = os.WriteFile("site.html", []byte(htmlContent), 0644)
 	if err != nil {
 		return err
 	}
@@ -96,3 +96,4 @@ func main() {
 	}
 	fmt.Println("Scraper Başari ile Çalişti")
 }
+
