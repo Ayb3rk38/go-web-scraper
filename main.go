@@ -11,13 +11,6 @@ import (
 	"github.com/gocolly/colly"
 )
 
-func getUrl() string {
-	var urlInput string
-	fmt.Print(("URL Giriniz:"))
-	fmt.Scan(&urlInput)
-	return urlInput
-}
-
 func collector(web string) error {
 	var htmlContent []byte
 	var links string
@@ -83,7 +76,11 @@ func captureScreenshot(ctx context.Context, targetUrl string) error {
 }
 
 func main() {
-	targetUrl := getUrl()
+	if len(os.Args) < 2 {
+		fmt.Println("Kullanim: go run main.go <hedef_url>")
+		os.Exit(1)
+	}
+	targetUrl := os.Args[1]
 	ctx, cancel := chromedp.NewContext(
 		context.Background(),
 	)
@@ -96,4 +93,5 @@ func main() {
 	}
 	fmt.Println("Scraper Başari ile Çalişti")
 }
+
 
