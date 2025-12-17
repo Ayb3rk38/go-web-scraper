@@ -29,7 +29,7 @@ A  web scraper written in **Go**. This tool is designed to perform basic site an
 
 3.  Run the scraper:
     ```bash
-    go run main.go
+    go run main.go <target_url>
     ```
 
 ## Output
