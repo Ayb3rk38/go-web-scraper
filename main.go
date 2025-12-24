@@ -25,12 +25,12 @@ func collector(web string) error {
 	c := colly.NewCollector()
 
 	c.OnResponse(func(r *colly.Response) {
-		fmt.Println("İstek Gönderiliyor...")
+		fmt.Println("Sending request...")
 
 		if r.StatusCode == 200 {
-			fmt.Println("Siteye Erişildi!")
+			fmt.Println("Accessed the site!")
 		} else {
-			fmt.Println("Siteye Erişilemedi,Hata Kodu:", r.StatusCode)
+			fmt.Println("Couldn't access the site.\n Error code:", r.StatusCode)
 		}
 		htmlContent = r.Body
 	})
@@ -77,24 +77,22 @@ func captureScreenshot(ctx context.Context, targetUrl string) error {
 
 func main() {
 	if len(os.Args) != 2 {
-		fmt.Println("Kullanim: go run main.go <hedef_url>")
+		fmt.Println("Usage: go run main.go <target_url>")
 		os.Exit(1)
 	}
+
 	targetUrl := os.Args[1]
 	ctx, cancel := chromedp.NewContext(
 		context.Background(),
 	)
 	defer cancel()
+
 	if err := collector(targetUrl); err != nil {
-		log.Fatal("Siteden Bilgi Çekerken Hata Meydana Geldi!", err)
+		log.Fatal("An error occured while taking content from the site: ", err)
 	}
 	if err := captureScreenshot(ctx, targetUrl); err != nil {
-		log.Fatal("Ekran Görüntüsü Alinirken Hata Meydana Geldi!", err)
+		log.Fatal("An error occured while taking screenshot from the site: ", err)
 	}
-	fmt.Println("Scraper Başari ile Çalişti")
+
+	fmt.Println("Scraping completed.")
 }
-
-
-
-
-
