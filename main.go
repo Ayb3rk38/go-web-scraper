@@ -82,9 +82,11 @@ func main() {
 	}
 
 	targetUrl := os.Args[1]
-	ctx, cancel := chromedp.NewContext(
-		context.Background(),
-	)
+	cfg := defaultBrowserConfig()
+	ctx, cancel, err := NewChromeDPContext(cfg)
+	if err != nil {
+		log.Fatal("Browser not found: ", err)
+	}
 	defer cancel()
 
 	if err := collector(targetUrl); err != nil {
