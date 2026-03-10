@@ -1,0 +1,18 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+main
+
+# Go build cache
+/bin/
+/pkg/
+
+# Scraper output
+*.png
+*.txt
+*.html
+
+# Editor
+.vscode/
